@@ -11,6 +11,11 @@
 
 class FileOperation {
   public:
+    // 构造函数与构析函数
+    FileOperation();
+    ~FileOperation();
+
+    // 文件操作接口
     void addLog(const StudentData & data);
     bool deleteLog(int number);
     bool modifyLog(int number, const StudentData & data);
@@ -18,7 +23,7 @@ class FileOperation {
     StudentData getLog(int number);
 
   private:
-    std::fstream File;
+    std::fstream dataFile;
     bool rangeCheck();
 };
 
