@@ -2,8 +2,9 @@
 // Created by zjy on 2021/5/5.
 //
 #include "io.h"
+#include "FileOperation.h"
 #include <iostream>
-
+using std::cin;
 using std::cout;
 using std::endl;
 
@@ -19,7 +20,63 @@ void menu() {
     cout << "4、查询学生信息" << endl;
     cout << "0、退出程序" << endl;
 }
-
-int io(int operation) {
-    switch (operation) { case 1: }
+void add() {
+    StudentData temp{};
+    auto * operations = new FileOperation;
+    cout << "请输入班级" << endl;
+    cin.sync();
+    cin >> temp.classCode;
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> temp.classCode;
+    }
+    cout << "请输入学号" << endl;
+    cin.sync();
+    cin >> temp.number;
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> temp.number;
+    }
+    cout << "请输入名字" << endl;
+    cin.sync();
+    cin.getline(temp.name, 20);
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> temp.name;
+    }
+    cout << "请输入第一门分数" << endl;
+    cin.sync();
+    cin >> temp.result_course_1;
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> temp.result_course_1;
+    }
+    cout << "请输入第二门分数" << endl;
+    cin.sync();
+    cin >> temp.result_course_2;
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> temp.result_course_2;
+    }
+    cout << "请输入第三门分数" << endl;
+    cin.sync();
+    cin >> temp.result_course_3;
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> temp.result_course_3;
+    }
+    operations->addLog(temp);
+    delete operations;
 }
