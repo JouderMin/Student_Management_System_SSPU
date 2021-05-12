@@ -17,3 +17,8 @@ FileOperation::FileOperation() {
 FileOperation::~FileOperation() {
     dataFile.close();
 }
+
+void FileOperation::addLog(const StudentData & data) {
+    dataFile.seekp(0, ios::end);
+    dataFile.write((char *)&data, sizeof(StudentData));
+}
