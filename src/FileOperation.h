@@ -19,12 +19,11 @@ class FileOperation {
     void addLog(const StudentData & data);
     bool deleteLog(int number);
     bool modifyLog(int number, const StudentData & data);
-    std::vector<StudentData> allLog();
-    StudentData getLog(int number);
+    bool allLog(std::vector<StudentData> & get);
+    bool getLog(int number, StudentData & data);
 
   private:
     std::fstream dataFile;
-    bool rangeCheck();
 };
 
 #endif // STUDENT_MANAGEMENT_SYSTEM_SSPU_FILEOPERATION_H
