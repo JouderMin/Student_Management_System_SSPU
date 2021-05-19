@@ -145,7 +145,21 @@ void modify() {
 }
 void showlog() {
     StudentData temp;
+    FileOperation operation;
+    int numbertolook;
     cout << "请输入查询学生信息" << endl;
+    cin >> numbertolook;
+    if (operation.getLog(numbertolook, temp)) {
+        cout << temp.number;
+        cout << temp.name;
+        cout << temp.classCode;
+        cout << temp.result_course_1;
+        cout << temp.result_course_2;
+        cout << temp.result_course_3;
+    } else {
+        cout << "查询错误，请检查学号是否输入错误";
+        showlog();
+    }
 }
 void deletestudent() {
     FileOperation operation;
