@@ -80,3 +80,30 @@ void add() {
     operations->addLog(temp);
     delete operations;
 }
+
+void selection() {
+    int userSelect;
+    while (true) {
+        system("cls");
+        menu();
+        cin >> userSelect;
+        if (cin.fail() || userSelect < 0 || userSelect > 4) {
+            cout << "错误的熟人" << endl;
+            cin.clear();
+            cin.sync();
+            cin >> userSelect;
+        }
+        switch (userSelect) {
+        case 0:
+            std::exit(0);
+        case 1:
+            add();
+            break;
+            // TODO 剩余的函数尚未实现。
+
+        default:
+            cout << "错误的输入" << endl;
+            break;
+        }
+    }
+}
