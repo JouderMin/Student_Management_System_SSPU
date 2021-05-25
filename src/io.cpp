@@ -169,4 +169,12 @@ void deletestudent() {
     operation.deleteLog(numbertodelete);
 }
 void showall() {
+    FileOperation operations;
+    std::vector<StudentData> temp;
+    operations.allLog(temp);
+    StudentData output;
+    cout << "以下是所有学生数据" << endl;
+    while (!temp.empty()) {
+        temp.pop_back();
+    }
 }
