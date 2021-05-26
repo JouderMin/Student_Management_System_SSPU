@@ -2,10 +2,10 @@
 // Created by JouderMin on 2021/4/28.
 //
 
-#include <iostream>
+#include "io.h"
 
 int main() {
-    std::cout << "Hello World" << std::endl;
+    functionSwitch();
 
     return 0;
 }

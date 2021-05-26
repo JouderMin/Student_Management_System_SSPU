@@ -16,11 +16,12 @@ void menu() {
     cout << "欢迎使用学生信息管理系统，请输入以下标号以访问对应功能" << endl;
     cout << "1、新建学生信息" << endl;
     cout << "2、修改学生信息" << endl;
-    cout << "3、显示所有学生信息" << endl;
-    cout << "4、查询学生信息" << endl;
+    cout << "3、删除学生信息" << endl;
+    cout << "4、显示所有学生信息" << endl;
+    cout << "5、查询学生信息" << endl;
     cout << "0、退出程序" << endl;
 }
-void add() {
+void addLog() {
     StudentData temp{};
     auto * operations = new FileOperation;
     cout << "请输入班级" << endl;
@@ -80,12 +81,12 @@ void add() {
     operations->addLog(temp);
     delete operations;
 }
-void modify() {
-    StudentData temp;
+void modifyLog() {
+    StudentData temp{};
     FileOperation operations;
-    int numbertochange;
+    int numberToChange;
     cout << "请输入需要修改的学生编号" << endl;
-    cin >> numbertochange;
+    cin >> numberToChange;
     cout << "请输入新的学生信息" << endl;
     cout << "请输入班级" << endl;
     cin.sync();
@@ -141,15 +142,15 @@ void modify() {
         cout << "错误的输入" << endl;
         cin >> temp.result_course_3;
     }
-    operations.modifyLog(numbertochange, temp);
+    operations.modifyLog(numberToChange, temp);
 }
-void showlog() {
-    StudentData temp;
+void showLog() {
+    StudentData temp{};
     FileOperation operation;
-    int numbertolook;
+    int numberToLook;
     cout << "请输入查询学生信息" << endl;
-    cin >> numbertolook;
-    if (operation.getLog(numbertolook, temp)) {
+    cin >> numberToLook;
+    if (operation.getLog(numberToLook, temp)) {
         cout << temp.number;
         cout << temp.name;
         cout << temp.classCode;
@@ -158,23 +159,62 @@ void showlog() {
         cout << temp.result_course_3;
     } else {
         cout << "查询错误，请检查学号是否输入错误";
-        showlog();
+        showLog();
     }
 }
-void deletestudent() {
+void deleteLog() {
     FileOperation operation;
-    int numbertodelete;
+    int numberToDelete;
     cout << "请输入需要删除学生的编号" << endl;
-    cin >> numbertodelete;
-    operation.deleteLog(numbertodelete);
+    cin >> numberToDelete;
+    operation.deleteLog(numberToDelete);
 }
-void showall() {
+void showAll() {
     FileOperation operations;
     std::vector<StudentData> temp;
     operations.allLog(temp);
-    StudentData output;
     cout << "以下是所有学生数据" << endl;
-    while (!temp.empty()) {
-        temp.pop_back();
+    for (auto i : temp) {
+        cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " " << i.result_course_3
+             << endl;
+    }
+}
+
+void functionSwitch() {
+    int switcher;
+
+    while (true) {
+        system("cls");
+        menu();
+        cin.sync();
+        cin >> switcher;
+        if (cin.fail()) {
+            cin.clear();
+            cin.sync();
+            cout << "错误的输入" << endl;
+            continue;
+        }
+        switch (switcher) {
+        case 0:
+            exit(0);
+        case 1:
+            addLog();
+            break;
+        case 2:
+            modifyLog();
+            break;
+        case 3:
+            deleteLog();
+            break;
+        case 4:
+            showAll();
+            break;
+        case 5:
+            showLog();
+            break;
+        default:
+            cout << "错误的输入" << endl;
+            break;
+        }
     }
 }
