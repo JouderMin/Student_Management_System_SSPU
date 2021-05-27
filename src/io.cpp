@@ -173,10 +173,205 @@ void showAll() {
     FileOperation operations;
     std::vector<StudentData> temp;
     operations.allLog(temp);
-    cout << "以下是所有学生数据" << endl;
-    for (auto i : temp) {
-        cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " " << i.result_course_3
-             << endl;
+    int todo = 0;
+    cout << "按总分排序请按1，按班级排序请按2，按学号排序请按3，按单科排序请按4,不排序请按5" << endl;
+    cin >> todo;
+    StudentData switchtemp;
+    bool risefall = 0;
+    switch (todo) {
+    case 1: {
+        cout << "输入0以升序排列，输入1以降序排列" << endl;
+        cin >> risefall;
+        int sum1 = 0;
+        int sum2 = 0;
+        for (auto i : temp) {
+            sum1 = i.result_course_1 + i.result_course_2 + i.result_course_3;
+            for (auto j : temp) {
+                sum2 = j.result_course_1 + j.result_course_2 + j.result_course_3;
+                if (risefall) {
+                    if (sum2 > sum1) {
+                        switchtemp = j;
+                        j          = i;
+                        i          = switchtemp;
+                    }
+                } else {
+                    if (sum2 < sum1) {
+                        switchtemp = j;
+                        j          = i;
+                        i          = switchtemp;
+                    }
+                }
+                sum2       = 0;
+                switchtemp = {0, 0, 0, 0, 0, 0};
+            }
+            sum1 = 0;
+        }
+        risefall = 0;
+        cout << "以下是所有学生数据" << endl;
+        for (auto i : temp) {
+            cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " " << i.result_course_3
+                 << endl;
+        }
+    } break;
+    case 2: {
+        cout << "输入0以升序排列，输入1以降序排列" << endl;
+        cin >> risefall;
+        for (auto i : temp) {
+            for (auto j : temp) {
+                if (risefall) {
+                    if (i.classCode > j.classCode) {
+                        switchtemp = j;
+                        j          = i;
+                        i          = switchtemp;
+                    }
+                } else {
+                    if (i.classCode < j.classCode) {
+                        switchtemp = j;
+                        j          = i;
+                        i          = switchtemp;
+                    }
+                }
+                switchtemp = {0, 0, 0, 0, 0, 0};
+            }
+        }
+        risefall = 0;
+        cout << "以下是所有学生数据" << endl;
+        for (auto i : temp) {
+            cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " " << i.result_course_3
+                 << endl;
+        }
+        break;
+    }
+    case 3: {
+        cout << "输入0以升序排列，输入1以降序排列" << endl;
+        cin >> risefall;
+        for (auto i : temp) {
+            for (auto j : temp) {
+                if (risefall) {
+                    if (i.number > j.number) {
+                        switchtemp = j;
+                        j          = i;
+                        i          = switchtemp;
+                    }
+                } else {
+                    if (i.number < j.number) {
+                        switchtemp = j;
+                        j          = i;
+                        i          = switchtemp;
+                    }
+                }
+                switchtemp = {0, 0, 0, 0, 0, 0};
+            }
+        }
+        risefall = 0;
+        cout << "以下是所有学生数据" << endl;
+        for (auto i : temp) {
+            cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " " << i.result_course_3
+                 << endl;
+        }
+        break;
+    }
+    case 4: {
+        int course = 0;
+        cout << "按科目一成绩排序请按1，按科目二成绩排序请按2，按科目三成绩排序请按3" << endl;
+        cin >> course;
+        switch (course) {
+        case 1: {
+            cout << "输入0以升序排列，输入1以降序排列" << endl;
+            cin >> risefall;
+            for (auto i : temp) {
+                for (auto j : temp) {
+                    if (risefall) {
+                        if (i.result_course_1 > j.result_course_1) {
+                            switchtemp = j;
+                            j          = i;
+                            i          = switchtemp;
+                        }
+                    } else {
+                        if (i.result_course_1 < j.result_course_1) {
+                            switchtemp = j;
+                            j          = i;
+                            i          = switchtemp;
+                        }
+                    }
+                    switchtemp = {0, 0, 0, 0, 0, 0};
+                }
+            }
+            risefall = 0;
+            cout << "以下是所有学生数据" << endl;
+            for (auto i : temp) {
+                cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " "
+                     << i.result_course_3 << endl;
+            }
+            break;
+        }
+        case 2: {
+            cout << "输入0以升序排列，输入1以降序排列" << endl;
+            cin >> risefall;
+            for (auto i : temp) {
+                for (auto j : temp) {
+                    if (risefall) {
+                        if (i.result_course_2 > j.result_course_2) {
+                            switchtemp = j;
+                            j          = i;
+                            i          = switchtemp;
+                        }
+                    } else {
+                        if (i.result_course_2 < j.result_course_2) {
+                            switchtemp = j;
+                            j          = i;
+                            i          = switchtemp;
+                        }
+                    }
+                    switchtemp = {0, 0, 0, 0, 0, 0};
+                }
+            }
+            risefall = 0;
+            cout << "以下是所有学生数据" << endl;
+            for (auto i : temp) {
+                cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " "
+                     << i.result_course_3 << endl;
+            }
+            break;
+        }
+        case 3: {
+            cout << "输入0以升序排列，输入1以降序排列" << endl;
+            cin >> risefall;
+            for (auto i : temp) {
+                for (auto j : temp) {
+                    if (risefall) {
+                        if (i.result_course_3 > j.result_course_3) {
+                            switchtemp = j;
+                            j          = i;
+                            i          = switchtemp;
+                        }
+                    } else {
+                        if (i.result_course_3 < j.result_course_3) {
+                            switchtemp = j;
+                            j          = i;
+                            i          = switchtemp;
+                        }
+                    }
+                    switchtemp = {0, 0, 0, 0, 0, 0};
+                }
+            }
+            risefall = 0;
+            cout << "以下是所有学生数据" << endl;
+            for (auto i : temp) {
+                cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " "
+                     << i.result_course_3 << endl;
+            }
+            break;
+        }
+        }
+    }
+    case 5: {
+        cout << "以下是所有学生数据" << endl;
+        for (auto i : temp) {
+            cout << i.classCode << " " << i.name << " " << i.result_course_1 << " " << i.result_course_2 << " " << i.result_course_3
+                 << endl;
+        }
+    }
     }
 }
 
