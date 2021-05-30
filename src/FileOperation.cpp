@@ -10,7 +10,7 @@ using std::vector;
 FileOperation::FileOperation() {
     dataFile.open("./StudentData.dat", ios::in | ios::out | ios::binary);
     while (!dataFile) {
-        std::system("type nul>cashdata.dat");
+        std::system("type nul>StudentData.dat");
         dataFile.open("./StudentData.dat", ios::in | ios::out | ios::binary);
     }
 }
@@ -32,6 +32,7 @@ bool FileOperation::allLog(vector<StudentData> & get) {
         delete input;
         return false;
     }
+    dataFile.clear();
     dataFile.seekg(0, ios::beg);
     while (dataFile.read((char *)input, sizeof(StudentData))) {
         get.push_back(*input);

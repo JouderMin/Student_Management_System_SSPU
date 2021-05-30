@@ -33,8 +33,8 @@ void displayData(FileOperation & file) {
     file.allLog(data);
     printf("序号  学号  名字  班级  科目1 科目2 科目3\n");
     for (i = 0; i < data.size(); i++) {
-        printf("%d %d  %s  %d  %d %d %d\n", i, data.at(i).number, data.at(i).name, data.at(i).classCode, data.at(i).result_course_1,
-               data.at(i).result_course_2, data.at(i).result_course_3);
+        printf("%d %d  %s  %d  %d %d %d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
+               data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3);
     }
 }
 
@@ -201,7 +201,7 @@ void showLog() {
     while (!operation->getLog(numberToLook, temp)) {
         cout << "查询错误，请检查学号是否输入错误" << endl;
     }
-    printf("%d  %s  %d  %d %d %d\n", temp.number, temp.name, temp.classCode, temp.result_course_1, temp.result_course_2,
+    printf("%lld  %s  %d  %d %d %d\n", temp.number, temp.name, temp.classCode, temp.result_course_1, temp.result_course_2,
            temp.result_course_3);
 }
 
@@ -211,9 +211,17 @@ void deleteLog() {
 
     displayData(operation);
     cout << "请输入需要删除学生的编号" << endl;
+    cin.sync();
     cin >> numberToDelete;
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> numberToDelete;
+    }
     while (!operation.deleteLog(numberToDelete)) {
         cout << "删除失败，请检查输入的数字是否有效" << endl;
+        cin >> numberToDelete;
     }
     cout << "删除成功" << endl;
 }
@@ -245,18 +253,23 @@ void functionSwitch() {
             exit(0);
         case 1:
             addLog();
+            system("pause");
             break;
         case 2:
             modifyLog();
+            system("pause");
             break;
         case 3:
             deleteLog();
+            system("pause");
             break;
         case 4:
             showAll();
+            system("pause");
             break;
         case 5:
             showLog();
+            system("pause");
             break;
         default:
             cout << "错误的输入" << endl;

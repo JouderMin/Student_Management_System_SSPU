@@ -6,7 +6,7 @@
 #define STUDENT_MANAGEMENT_SYSTEM_SSPU_STUDENTDATA_H
 
 struct StudentData {
-    int number;
+    long long number;
     int classCode;
     int result_course_1;
     int result_course_2;
