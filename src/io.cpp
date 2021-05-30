@@ -2,11 +2,15 @@
 // Created by zjy on 2021/5/5.
 //
 #include "io.h"
+#include "DataSort.h"
 #include "FileOperation.h"
+#include <cstdio>
 #include <iostream>
+
 using std::cin;
 using std::cout;
 using std::endl;
+using std::printf;
 
 void menu() {
     cout << "程序设计与实践大作业" << endl;
@@ -21,9 +25,23 @@ void menu() {
     cout << "5、查询学生信息" << endl;
     cout << "0、退出程序" << endl;
 }
+
+void displayData(FileOperation & file) {
+    vector<StudentData> data;
+    int i;
+
+    file.allLog(data);
+    printf("序号  学号  名字  班级  科目1 科目2 科目3\n");
+    for (i = 0; i < data.size(); i++) {
+        printf("%d %d  %s  %d  %d %d %d\n", i, data.at(i).number, data.at(i).name, data.at(i).classCode, data.at(i).result_course_1,
+               data.at(i).result_course_2, data.at(i).result_course_3);
+    }
+}
+
 void addLog() {
     StudentData temp{};
     auto * operations = new FileOperation;
+
     cout << "请输入班级" << endl;
     cin.sync();
     cin >> temp.classCode;
@@ -49,7 +67,7 @@ void addLog() {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
-        cin >> temp.name;
+        cin.getline(temp.name, 20);
     }
     cout << "请输入第一门分数" << endl;
     cin.sync();
@@ -81,12 +99,33 @@ void addLog() {
     operations->addLog(temp);
     delete operations;
 }
+
 void modifyLog() {
     StudentData temp{};
     FileOperation operations;
     int numberToChange;
+
+    displayData(operations);
     cout << "请输入需要修改的学生编号" << endl;
+    cin.sync();
     cin >> numberToChange;
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "请检查输入" << endl;
+        cin >> numberToChange;
+    }
+    while (!operations.getLog(numberToChange, temp)) {
+        cout << "编号错误，请重新输入" << endl;
+        cin.sync();
+        cin >> numberToChange;
+        if (cin.fail()) {
+            cin.clear();
+            cin.sync();
+            cout << "请检查输入" << endl;
+            cin >> numberToChange;
+        }
+    }
     cout << "请输入新的学生信息" << endl;
     cout << "请输入班级" << endl;
     cin.sync();
@@ -113,7 +152,7 @@ void modifyLog() {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
-        cin >> temp.name;
+        cin.getline(temp.name, 20);
     }
     cout << "请输入第一门分数" << endl;
     cin.sync();
@@ -144,38 +183,47 @@ void modifyLog() {
     }
     operations.modifyLog(numberToChange, temp);
 }
+
 void showLog() {
     StudentData temp{};
-    FileOperation operation;
+    auto operation = new FileOperation;
     int numberToLook;
+
     cout << "请输入查询学生信息" << endl;
+    cin.sync();
     cin >> numberToLook;
-    if (operation.getLog(numberToLook, temp)) {
-        cout << temp.number;
-        cout << temp.name;
-        cout << temp.classCode;
-        cout << temp.result_course_1;
-        cout << temp.result_course_2;
-        cout << temp.result_course_3;
-    } else {
-        cout << "查询错误，请检查学号是否输入错误";
-        showLog();
+    if (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> numberToLook;
     }
+    while (!operation->getLog(numberToLook, temp)) {
+        cout << "查询错误，请检查学号是否输入错误" << endl;
+    }
+    printf("%d  %s  %d  %d %d %d\n", temp.number, temp.name, temp.classCode, temp.result_course_1, temp.result_course_2,
+           temp.result_course_3);
 }
+
 void deleteLog() {
     FileOperation operation;
     int numberToDelete;
+
+    displayData(operation);
     cout << "请输入需要删除学生的编号" << endl;
     cin >> numberToDelete;
-    operation.deleteLog(numberToDelete);
+    while (!operation.deleteLog(numberToDelete)) {
+        cout << "删除失败，请检查输入的数字是否有效" << endl;
+    }
+    cout << "删除成功" << endl;
 }
+
 void showAll() {
     FileOperation operations;
     std::vector<StudentData> temp;
     operations.allLog(temp);
     int todo = 0;
     cout << "按总分排序请按1，按班级排序请按2，按学号排序请按3，按单科排序请按4" << endl;
-
 }
 
 void functionSwitch() {

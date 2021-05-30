@@ -13,7 +13,7 @@ int sum(StudentData a) {
     return a.result_course_1 + a.result_course_2 + a.result_course_3;
 }
 
-bool sort_by_sum_core(StudentData a, StudentData b) {
+bool sort_by_sum_core(const StudentData & a, const StudentData & b) {
     return sum(a) > sum(b);
 }
 
