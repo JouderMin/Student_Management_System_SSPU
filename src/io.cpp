@@ -33,7 +33,7 @@ void displayData(FileOperation & file) {
     file.allLog(data);
     printf("序号  学号  名字  班级  科目1 科目2 科目3\n");
     for (i = 0; i < data.size(); i++) {
-        printf("%d %d  %s  %d  %d %d %d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
+        printf("%d %lld  %s  %d  %d %d %d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
                data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3);
     }
 }
