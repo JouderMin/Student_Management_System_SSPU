@@ -38,6 +38,14 @@ void displayData(FileOperation & file) {
     }
 }
 
+void displayVectorData(vector<StudentData> data) {
+    printf("序号  学号  名字  班级  科目1 科目2 科目3\n");
+    for (int i = 0; i < data.size(); i++) {
+        printf("%d %lld  %s  %d  %d %d %d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
+               data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3);
+    }
+}
+
 void addLog() {
     StudentData temp{};
     auto * operations = new FileOperation;
@@ -226,12 +234,45 @@ void deleteLog() {
     cout << "删除成功" << endl;
 }
 
+void sortInSolo() {
+    int todo = 0;
+    cout << "按第一门课程成绩排序请按1，按第二门课程成绩排序请按2，按第三门课程成绩排序请按3" << endl;
+    cin >> todo;
+    switch (todo) {
+    case 1:
+        displayVectorData(sort_by_course_result_1());
+        break;
+    case 2:
+        displayVectorData(sort_by_course_result_2());
+        break;
+    case 3:
+        displayVectorData(sort_by_course_result_3());
+        break;
+    default:
+        cout << "错误的输入" << endl;
+    }
+}
+
 void showAll() {
-    FileOperation operations;
-    std::vector<StudentData> temp;
-    operations.allLog(temp);
     int todo = 0;
     cout << "按总分排序请按1，按班级排序请按2，按学号排序请按3，按单科排序请按4" << endl;
+    cin >> todo;
+    switch (todo) {
+    case 1:
+        displayVectorData(sort_by_sum());
+        break;
+    case 2:
+        displayVectorData(sort_by_class());
+        break;
+    case 3:
+        displayVectorData(sort_by_num());
+        break;
+    case 4:
+        sortInSolo();
+        break;
+    default:
+        cout << "错误的输入" << endl;
+    }
 }
 
 void functionSwitch() {
