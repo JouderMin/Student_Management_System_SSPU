@@ -238,6 +238,12 @@ void sortInSolo() {
     int todo = 0;
     cout << "按第一门课程成绩排序请按1，按第二门课程成绩排序请按2，按第三门课程成绩排序请按3" << endl;
     cin >> todo;
+    while (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> todo;
+    }
     switch (todo) {
     case 1:
         displayVectorData(sort_by_course_result_1());
@@ -257,6 +263,12 @@ void showAll() {
     int todo = 0;
     cout << "按总分排序请按1，按班级排序请按2，按学号排序请按3，按单科排序请按4" << endl;
     cin >> todo;
+    while (cin.fail()) {
+        cin.clear();
+        cin.sync();
+        cout << "错误的输入" << endl;
+        cin >> todo;
+    }
     switch (todo) {
     case 1:
         displayVectorData(sort_by_sum());
@@ -293,27 +305,34 @@ void functionSwitch() {
         case 0:
             exit(0);
         case 1:
+            system("cls");
             addLog();
             system("pause");
             break;
         case 2:
+            system("cls");
             modifyLog();
             system("pause");
             break;
         case 3:
+            system("cls");
             deleteLog();
             system("pause");
             break;
         case 4:
+            system("cls");
             showAll();
             system("pause");
             break;
         case 5:
+            system("cls");
             showLog();
             system("pause");
             break;
         default:
+            system("cls");
             cout << "错误的输入" << endl;
+            system("pause");
             break;
         }
     }
