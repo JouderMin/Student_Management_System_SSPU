@@ -20,11 +20,13 @@ FileOperation::~FileOperation() {
 }
 
 void FileOperation::addLog(const StudentData & data) {
+    dataFile.clear();
     dataFile.seekp(0, ios::end);
     dataFile.write((char *)&data, sizeof(StudentData));
 }
 
 bool FileOperation::allLog(vector<StudentData> & get) {
+    dataFile.clear();
     vector<StudentData>().swap(get);
     auto * input = new StudentData();
     dataFile.seekg(0, ios::end);
@@ -42,6 +44,7 @@ bool FileOperation::allLog(vector<StudentData> & get) {
 }
 
 bool FileOperation::getLog(int number, StudentData & data) {
+    dataFile.clear();
     dataFile.seekg(number * (signed)sizeof(StudentData), ios::beg);
     dataFile.read((char *)&data, sizeof(StudentData));
     if (dataFile.eof()) {

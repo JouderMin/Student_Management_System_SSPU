@@ -169,7 +169,6 @@ void modifyLog() {
             return;
         }
     }
-    operations.getLog(numberToChange, temp);
     cout << "请输入新的学生信息" << endl;
     cout << "请输入第一门分数" << endl;
     cin.sync();
