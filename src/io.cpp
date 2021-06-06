@@ -155,7 +155,7 @@ void modifyLog() {
     if (!numberToChange) {
         return;
     }
-    while (!operations.getLog(numberToChange, temp)) {
+    while (!operations.getLog(numberToChange - 1, temp)) {
         cout << "±àºÅ´íÎó£¬ÇëÖØÐÂÊäÈë" << endl;
         cin.sync();
         cin >> numberToChange;
