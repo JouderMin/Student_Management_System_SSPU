@@ -4,6 +4,7 @@
 #include "io.h"
 #include "DataSort.h"
 #include "FileOperation.h"
+#include <algorithm>
 #include <cstdio>
 #include <iostream>
 #include <map>
@@ -24,6 +25,7 @@ void menu() {
     cout << "3、删除学生信息" << endl;
     cout << "4、显示所有学生信息" << endl;
     cout << "5、查询学生信息" << endl;
+    cout << "6、显示所有有不及格分数的学生信息" << endl;
     cout << "0、退出程序" << endl;
 }
 
@@ -203,7 +205,10 @@ void modifyLog() {
         cout << "错误的输入" << endl;
         cin >> temp.result_course_3;
     }
-    operations.modifyLog(numberToChange, temp);
+    if (!operations.modifyLog(numberToChange - 1, temp)) {
+        cout << "修改失败" << endl;
+        return;
+    }
     cout << "修改成功" << endl;
 }
 
@@ -330,6 +335,17 @@ void showAll() {
     }
 }
 
+void showWarning() {
+    vector<StudentData> all = sort_by_class();
+    vector<StudentData> warning(all.size());
+
+    auto it = std::copy_if(all.begin(), all.end(), warning.begin(), [](StudentData a) {
+        return a.result_course_1 < 60 || a.result_course_2 < 60 || a.result_course_3 < 60;
+    });
+    warning.resize(std::distance(warning.begin(), it));
+    displayVectorData(warning);
+}
+
 void functionSwitch() {
     int switcher;
 
@@ -371,6 +387,11 @@ void functionSwitch() {
         case 5:
             system("cls");
             showLog();
+            system("pause");
+            break;
+        case 6:
+            system("cls");
+            showWarning();
             system("pause");
             break;
         default:

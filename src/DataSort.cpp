@@ -18,7 +18,7 @@ bool sort_by_sum_core(const StudentData & a, const StudentData & b) {
 }
 
 bool sort_by_num_core(const StudentData & a, const StudentData & b) {
-    return a.number > b.number;
+    return a.number < b.number;
 }
 
 bool sort_by_class_core(const StudentData & a, const StudentData & b) {

@@ -51,11 +51,12 @@ bool FileOperation::getLog(int number, StudentData & data) {
 }
 
 bool FileOperation::modifyLog(int number, const StudentData & data) {
-    dataFile.seekg((number + 1) * (signed)sizeof(StudentData), ios::beg);
+    dataFile.clear();
+    dataFile.seekp((number + 1) * (signed)sizeof(StudentData), ios::beg);
     if (dataFile.eof()) {
         return false;
     }
-    dataFile.seekg(number * (signed)sizeof(StudentData), ios::beg);
+    dataFile.seekp(number * (signed)sizeof(StudentData), ios::beg);
     dataFile.write((char *)&data, sizeof(StudentData));
 
     return true;
