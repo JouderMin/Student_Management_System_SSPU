@@ -169,34 +169,8 @@ void modifyLog() {
             return;
         }
     }
+    operations.getLog(numberToChange, temp);
     cout << "请输入新的学生信息" << endl;
-    cout << "请输入9位数的班级id" << endl;
-    cin.sync();
-    cin >> temp.classCode;
-    while (cin.fail() || temp.classCode < 100000000 || temp.classCode > 999999999) {
-        cin.clear();
-        cin.sync();
-        cout << "错误的输入" << endl;
-        cin >> temp.classCode;
-    }
-    cout << "请输入11位数的学号" << endl;
-    cin.sync();
-    cin >> temp.number;
-    while (cin.fail() || !numberRepeat(temp.number) || temp.number < 10000000000 || temp.number > 99999999999) {
-        cin.clear();
-        cin.sync();
-        cin >> temp.number;
-        cout << "错误的输入" << endl;
-    }
-    cout << "请输入名字" << endl;
-    cin.sync();
-    cin.getline(temp.name, 20);
-    while (cin.fail()) {
-        cin.clear();
-        cin.sync();
-        cout << "错误的输入" << endl;
-        cin.getline(temp.name, 20);
-    }
     cout << "请输入第一门分数" << endl;
     cin.sync();
     cin >> temp.result_course_1;
