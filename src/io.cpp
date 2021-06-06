@@ -29,6 +29,22 @@ void menu() {
     cout << "0、退出程序" << endl;
 }
 
+bool numberRepeat(long long number) {
+    auto operation = new FileOperation;
+    int i          = 0;
+    StudentData temp{};
+
+    while (operation->getLog(i, temp)) {
+        if (temp.number == number) {
+            delete operation;
+            return false;
+        }
+        i++;
+    }
+    delete operation;
+    return true;
+}
+
 void displayData(FileOperation & file) {
     vector<StudentData> data;
 
@@ -73,7 +89,7 @@ void addLog() {
     cout << "请输入11位数的学号" << endl;
     cin.sync();
     cin >> temp.number;
-    while (cin.fail() || temp.number < 10000000000 || temp.number > 99999999999) {
+    while (cin.fail() || !numberRepeat(temp.number) || temp.number < 10000000000 || temp.number > 99999999999) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -166,11 +182,11 @@ void modifyLog() {
     cout << "请输入11位数的学号" << endl;
     cin.sync();
     cin >> temp.number;
-    while (cin.fail() || temp.number < 10000000000 || temp.number > 99999999999) {
+    while (cin.fail() || !numberRepeat(temp.number) || temp.number < 10000000000 || temp.number > 99999999999) {
         cin.clear();
         cin.sync();
-        cout << "错误的输入" << endl;
         cin >> temp.number;
+        cout << "错误的输入" << endl;
     }
     cout << "请输入名字" << endl;
     cin.sync();
