@@ -91,7 +91,7 @@ void addLog() {
     cout << "请输入第一门分数" << endl;
     cin.sync();
     cin >> temp.result_course_1;
-    while (cin.fail()) {
+    while (cin.fail() || temp.result_course_1 < 0 || temp.result_course_1 > 100) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -100,7 +100,7 @@ void addLog() {
     cout << "请输入第二门分数" << endl;
     cin.sync();
     cin >> temp.result_course_2;
-    while (cin.fail()) {
+    while (cin.fail() || temp.result_course_2 < 0 || temp.result_course_2 > 100) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -109,7 +109,7 @@ void addLog() {
     cout << "请输入第三门分数" << endl;
     cin.sync();
     cin >> temp.result_course_3;
-    while (cin.fail()) {
+    while (cin.fail() || temp.result_course_3 < 0 || temp.result_course_3 > 100) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -123,7 +123,7 @@ void addLog() {
 void modifyLog() {
     StudentData temp{};
     FileOperation operations;
-    int numberToChange;
+    int numberToChange = -1;
 
     cout << "修改学生记录向导" << endl;
     displayData(operations);
@@ -148,6 +148,9 @@ void modifyLog() {
             cin.sync();
             cout << "请检查输入" << endl;
             cin >> numberToChange;
+        }
+        if (!numberToChange) {
+            return;
         }
     }
     cout << "请输入新的学生信息" << endl;
@@ -181,7 +184,7 @@ void modifyLog() {
     cout << "请输入第一门分数" << endl;
     cin.sync();
     cin >> temp.result_course_1;
-    while (cin.fail()) {
+    while (cin.fail() || temp.result_course_1 < 0 || temp.result_course_1 > 100) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -190,7 +193,7 @@ void modifyLog() {
     cout << "请输入第二门分数" << endl;
     cin.sync();
     cin >> temp.result_course_2;
-    while (cin.fail()) {
+    while (cin.fail() || temp.result_course_2 < 0 || temp.result_course_2 > 100) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -199,7 +202,7 @@ void modifyLog() {
     cout << "请输入第三门分数" << endl;
     cin.sync();
     cin >> temp.result_course_3;
-    while (cin.fail()) {
+    while (cin.fail() || temp.result_course_3 < 0 || temp.result_course_3 > 100) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
