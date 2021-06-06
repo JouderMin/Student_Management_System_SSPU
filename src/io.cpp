@@ -6,6 +6,7 @@
 #include "FileOperation.h"
 #include <cstdio>
 #include <iostream>
+#include <map>
 
 using std::cin;
 using std::cout;
@@ -206,25 +207,50 @@ void modifyLog() {
     cout << "修改成功" << endl;
 }
 
+bool getLog(long long number, StudentData & data) {
+    auto operation = new FileOperation;
+    std::map<long long, StudentData> harsh;
+    int i = 0;
+    StudentData temp{};
+
+    while (operation->getLog(i, temp)) {
+        harsh.insert(std::map<long long, StudentData>::value_type(temp.number, temp));
+        i++;
+    }
+    auto iter = harsh.find(number);
+    delete operation;
+
+    if (iter != harsh.end()) {
+        data = iter->second;
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void showLog() {
     StudentData temp{};
-    auto operation = new FileOperation;
-    int numberToLook;
+    long long numberToLook = 1;
 
-    cout << "请输入查询学生信息" << endl;
+    cout << "请输入查询学生学号，输入0以回到上一层" << endl;
     cin.sync();
     cin >> numberToLook;
-    while (cin.fail() || numberToLook <= 0) {
+    while (cin.fail() || numberToLook < 10000000000 || numberToLook > 99999999999) {
+        if (!numberToLook) {
+            return;
+        }
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
         cin >> numberToLook;
     }
-    while (!operation->getLog(numberToLook - 1, temp)) {
+    while (!getLog(numberToLook, temp)) {
         cout << "查询错误，请检查学号是否输入错误" << endl;
+        return;
     }
-    printf("%lld  %s  %d  %d %d %d\n", temp.number, temp.name, temp.classCode, temp.result_course_1, temp.result_course_2,
-           temp.result_course_3);
+    printf("    学号      名字     班级     科目1 科目2 科目3\n");
+    printf("%11lld  %-7s  %-9d  %-5d %-5d %-5d\n", temp.number, temp.name, temp.classCode, temp.result_course_1,
+           temp.result_course_2, temp.result_course_3);
 }
 
 void deleteLog() {
@@ -316,6 +342,7 @@ void functionSwitch() {
             cin.clear();
             cin.sync();
             cout << "错误的输入" << endl;
+            system("pause");
             continue;
         }
         switch (switcher) {
