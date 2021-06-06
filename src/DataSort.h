@@ -10,6 +10,7 @@
 
 using std::vector;
 
+int sum(StudentData a);
 vector<StudentData> sort_by_sum();
 vector<StudentData> sort_by_num();
 vector<StudentData> sort_by_class();

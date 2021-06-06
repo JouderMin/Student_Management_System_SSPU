@@ -53,10 +53,10 @@ void displayData(FileOperation & file) {
         cout << "无记录" << endl;
         return;
     }
-    printf("序号     学号      名字     班级     科目1 科目2 科目3\n");
+    printf("序号     学号      名字     班级     科目1 科目2 科目3 总分\n");
     for (int i = 0; i < data.size(); i++) {
-        printf("%-4d %11lld  %-7s  %-9d  %-5d %-5d %-5d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
-               data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3);
+        printf("%-4d %11lld  %-7s  %-9d  %-5d %-5d %-5d %-4d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
+               data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3, sum(data.at(i)));
     }
 }
 
@@ -65,11 +65,34 @@ void displayVectorData(vector<StudentData> data) {
         cout << "无记录" << endl;
         return;
     }
-    printf("序号     学号      名字     班级     科目1 科目2 科目3\n");
+    printf("序号     学号      名字     班级     科目1 科目2 科目3 总分\n");
     for (int i = 0; i < data.size(); i++) {
-        printf("%-4d %11lld  %-7s  %-9d  %-5d %-5d %-5d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
-               data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3);
+        printf("%-4d %11lld  %-7s  %-9d  %-5d %-5d %-5d %-4d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
+               data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3, sum(data.at(i)));
     }
+}
+
+void displayVectorDataWithAvgr(vector<StudentData> data) {
+    if (data.empty()) {
+        cout << "无记录" << endl;
+        return;
+    }
+    long long avgr_1 = 0, avgr_2 = 0, avgr_3 = 0;
+    printf("序号     学号      名字     班级     科目1 科目2 科目3\n");
+    printf("序号     学号      名字     班级     科目1 科目2 科目3 总分\n");
+    for (int i = 0; i < data.size(); i++) {
+        printf("%-4d %11lld  %-7s  %-9d  %-5d %-5d %-5d %-4d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
+               data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3, sum(data.at(i)));
+        avgr_1 += data.at(i).result_course_1;
+        avgr_2 += data.at(i).result_course_2;
+        avgr_3 += data.at(i).result_course_3;
+    }
+    avgr_1 /= (signed)data.size();
+    avgr_2 /= (signed)data.size();
+    avgr_3 /= (signed)data.size();
+    cout << "科目1的平均分为" << avgr_1 << endl;
+    cout << "科目2的平均分为" << avgr_2 << endl;
+    cout << "科目3的平均分为" << avgr_3 << endl;
 }
 
 void addLog() {
@@ -245,9 +268,9 @@ void showLog() {
         cout << "查询错误，请检查学号是否输入错误" << endl;
         return;
     }
-    printf("    学号      名字     班级     科目1 科目2 科目3\n");
-    printf("%11lld  %-7s  %-9d  %-5d %-5d %-5d\n", temp.number, temp.name, temp.classCode, temp.result_course_1,
-           temp.result_course_2, temp.result_course_3);
+    printf("    学号      名字     班级     科目1 科目2 科目3 总分\n");
+    printf("%11lld  %-7s  %-9d  %-5d %-5d %-5d %-4d\n", temp.number, temp.name, temp.classCode, temp.result_course_1,
+           temp.result_course_2, temp.result_course_3, sum(temp));
 }
 
 void deleteLog() {
@@ -286,13 +309,13 @@ void sortInSolo() {
     }
     switch (todo) {
     case 1:
-        displayVectorData(sort_by_course_result_1());
+        displayVectorDataWithAvgr(sort_by_course_result_1());
         break;
     case 2:
-        displayVectorData(sort_by_course_result_2());
+        displayVectorDataWithAvgr(sort_by_course_result_2());
         break;
     case 3:
-        displayVectorData(sort_by_course_result_3());
+        displayVectorDataWithAvgr(sort_by_course_result_3());
         break;
     default:
         cout << "错误的输入" << endl;
@@ -311,13 +334,13 @@ void showAll() {
     }
     switch (todo) {
     case 1:
-        displayVectorData(sort_by_sum());
+        displayVectorDataWithAvgr(sort_by_sum());
         break;
     case 2:
-        displayVectorData(sort_by_class());
+        displayVectorDataWithAvgr(sort_by_class());
         break;
     case 3:
-        displayVectorData(sort_by_num());
+        displayVectorDataWithAvgr(sort_by_num());
         break;
     case 4:
         sortInSolo();
