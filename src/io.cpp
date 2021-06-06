@@ -28,20 +28,27 @@ void menu() {
 
 void displayData(FileOperation & file) {
     vector<StudentData> data;
-    int i;
 
     file.allLog(data);
-    printf("序号  学号  名字  班级  科目1 科目2 科目3\n");
-    for (i = 0; i < data.size(); i++) {
-        printf("%d %lld  %s  %d  %d %d %d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
+    if (data.empty()) {
+        cout << "无记录" << endl;
+        return;
+    }
+    printf("序号     学号      名字     班级     科目1 科目2 科目3\n");
+    for (int i = 0; i < data.size(); i++) {
+        printf("%-4d %11lld  %-7s  %-9d  %-5d %-5d %-5d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
                data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3);
     }
 }
 
 void displayVectorData(vector<StudentData> data) {
-    printf("序号  学号  名字  班级  科目1 科目2 科目3\n");
+    if (data.empty()) {
+        cout << "无记录" << endl;
+        return;
+    }
+    printf("序号     学号      名字     班级     科目1 科目2 科目3\n");
     for (int i = 0; i < data.size(); i++) {
-        printf("%d %lld  %s  %d  %d %d %d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
+        printf("%-4d %11lld  %-7s  %-9d  %-5d %-5d %-5d\n", i + 1, data.at(i).number, data.at(i).name, data.at(i).classCode,
                data.at(i).result_course_1, data.at(i).result_course_2, data.at(i).result_course_3);
     }
 }
@@ -50,19 +57,20 @@ void addLog() {
     StudentData temp{};
     auto * operations = new FileOperation;
 
-    cout << "请输入班级" << endl;
+    cout << "添加新学生记录向导" << endl;
+    cout << "请输入9位数的班级id" << endl;
     cin.sync();
     cin >> temp.classCode;
-    if (cin.fail()) {
+    while (cin.fail() || temp.classCode < 100000000 || temp.classCode > 999999999) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
         cin >> temp.classCode;
     }
-    cout << "请输入学号" << endl;
+    cout << "请输入11位数的学号" << endl;
     cin.sync();
     cin >> temp.number;
-    if (cin.fail()) {
+    while (cin.fail() || temp.number < 10000000000 || temp.number > 99999999999) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -71,7 +79,7 @@ void addLog() {
     cout << "请输入名字" << endl;
     cin.sync();
     cin.getline(temp.name, 20);
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -80,7 +88,7 @@ void addLog() {
     cout << "请输入第一门分数" << endl;
     cin.sync();
     cin >> temp.result_course_1;
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -89,7 +97,7 @@ void addLog() {
     cout << "请输入第二门分数" << endl;
     cin.sync();
     cin >> temp.result_course_2;
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -98,13 +106,14 @@ void addLog() {
     cout << "请输入第三门分数" << endl;
     cin.sync();
     cin >> temp.result_course_3;
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
         cin >> temp.result_course_3;
     }
     operations->addLog(temp);
+    cout << "添加成功" << endl;
     delete operations;
 }
 
@@ -113,21 +122,25 @@ void modifyLog() {
     FileOperation operations;
     int numberToChange;
 
+    cout << "修改学生记录向导" << endl;
     displayData(operations);
-    cout << "请输入需要修改的学生编号" << endl;
+    cout << "请输入需要修改的学生编号，输入0以回到上一层" << endl;
     cin.sync();
     cin >> numberToChange;
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "请检查输入" << endl;
         cin >> numberToChange;
     }
+    if (!numberToChange) {
+        return;
+    }
     while (!operations.getLog(numberToChange, temp)) {
         cout << "编号错误，请重新输入" << endl;
         cin.sync();
         cin >> numberToChange;
-        if (cin.fail()) {
+        while (cin.fail()) {
             cin.clear();
             cin.sync();
             cout << "请检查输入" << endl;
@@ -135,19 +148,19 @@ void modifyLog() {
         }
     }
     cout << "请输入新的学生信息" << endl;
-    cout << "请输入班级" << endl;
+    cout << "请输入9位数的班级id" << endl;
     cin.sync();
     cin >> temp.classCode;
-    if (cin.fail()) {
+    while (cin.fail() || temp.classCode < 100000000 || temp.classCode > 999999999) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
         cin >> temp.classCode;
     }
-    cout << "请输入学号" << endl;
+    cout << "请输入11位数的学号" << endl;
     cin.sync();
     cin >> temp.number;
-    if (cin.fail()) {
+    while (cin.fail() || temp.number < 10000000000 || temp.number > 99999999999) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -156,7 +169,7 @@ void modifyLog() {
     cout << "请输入名字" << endl;
     cin.sync();
     cin.getline(temp.name, 20);
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -165,7 +178,7 @@ void modifyLog() {
     cout << "请输入第一门分数" << endl;
     cin.sync();
     cin >> temp.result_course_1;
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -174,7 +187,7 @@ void modifyLog() {
     cout << "请输入第二门分数" << endl;
     cin.sync();
     cin >> temp.result_course_2;
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
@@ -183,13 +196,14 @@ void modifyLog() {
     cout << "请输入第三门分数" << endl;
     cin.sync();
     cin >> temp.result_course_3;
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
         cin >> temp.result_course_3;
     }
     operations.modifyLog(numberToChange, temp);
+    cout << "修改成功" << endl;
 }
 
 void showLog() {
@@ -200,13 +214,13 @@ void showLog() {
     cout << "请输入查询学生信息" << endl;
     cin.sync();
     cin >> numberToLook;
-    if (cin.fail()) {
+    while (cin.fail() || numberToLook <= 0) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
         cin >> numberToLook;
     }
-    while (!operation->getLog(numberToLook, temp)) {
+    while (!operation->getLog(numberToLook - 1, temp)) {
         cout << "查询错误，请检查学号是否输入错误" << endl;
     }
     printf("%lld  %s  %d  %d %d %d\n", temp.number, temp.name, temp.classCode, temp.result_course_1, temp.result_course_2,
@@ -218,14 +232,17 @@ void deleteLog() {
     int numberToDelete;
 
     displayData(operation);
-    cout << "请输入需要删除学生的编号" << endl;
+    cout << "请输入需要删除学生的编号，输入0以回到上一层" << endl;
     cin.sync();
     cin >> numberToDelete;
-    if (cin.fail()) {
+    while (cin.fail()) {
         cin.clear();
         cin.sync();
         cout << "错误的输入" << endl;
         cin >> numberToDelete;
+    }
+    if (!numberToDelete) {
+        return;
     }
     while (!operation.deleteLog(numberToDelete)) {
         cout << "删除失败，请检查输入的数字是否有效" << endl;

@@ -64,7 +64,7 @@ bool FileOperation::modifyLog(int number, const StudentData & data) {
 bool FileOperation::deleteLog(int number) {
     vector<StudentData> temp;
     allLog(temp);
-    if (number > temp.size()) {
+    if (number > temp.size() || number <= 0) {
         return false;
     }
     temp.erase(temp.begin() + number - 1);
