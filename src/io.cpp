@@ -292,7 +292,17 @@ void deleteLog() {
     }
     while (!operation.deleteLog(numberToDelete)) {
         cout << "删除失败，请检查输入的数字是否有效" << endl;
+        cin.sync();
         cin >> numberToDelete;
+        while (cin.fail()) {
+            cin.clear();
+            cin.sync();
+            cout << "错误的输入" << endl;
+            cin >> numberToDelete;
+        }
+        if (!numberToDelete) {
+            return;
+        }
     }
     cout << "删除成功" << endl;
 }
@@ -300,6 +310,7 @@ void deleteLog() {
 void sortInSolo() {
     int todo = 0;
     cout << "按第一门课程成绩排序请按1，按第二门课程成绩排序请按2，按第三门课程成绩排序请按3" << endl;
+    cin.sync();
     cin >> todo;
     while (cin.fail()) {
         cin.clear();
@@ -325,6 +336,7 @@ void sortInSolo() {
 void showAll() {
     int todo = 0;
     cout << "按总分排序请按1，按班级排序请按2，按学号排序请按3，按单科排序请按4" << endl;
+    cin.sync();
     cin >> todo;
     while (cin.fail()) {
         cin.clear();
